@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/api/v1")
 public class TestDisponibilidadController {
     
-    @GetMapping("test")
+    @GetMapping("/test")
     public ResponseEntity<String> mostrarRespuestaTest(){
         return new ResponseEntity<>("test ok", HttpStatus.OK);
     }
