@@ -52,6 +52,10 @@ public class Cliente implements Serializable {
     @Column(unique = true, nullable = false)
     private String correoElectronico;
 
+    private String resultadoListasRestrictivas;
+    private String resultadoRiesgo;
+    private String resultadoOtorgamientoAutomatico;
+
     @OneToMany
     @JoinColumn(name = "id_cliente")
     private Set<TarjetaCredito> tarjetasCredito;

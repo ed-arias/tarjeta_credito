@@ -26,7 +26,7 @@ public class Solicitud implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSolicitud;
-    private String estado;
+    private Long estado;
 
     @OneToOne
     @JoinColumn(name = "id_cliente")

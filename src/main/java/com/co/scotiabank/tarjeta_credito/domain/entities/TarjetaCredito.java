@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "tarjeta_credito", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "numero", "entidadEmisora" }, name = "unique_numero_entidadEmisora") })
+        @UniqueConstraint(columnNames = { "numero" }, name = "unique_numero_entidadEmisora") })
 public class TarjetaCredito implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,10 +38,6 @@ public class TarjetaCredito implements Serializable {
     private String franquicia;
 
     private Integer ccv;
-
-    @Column(nullable = false)
-    private String entidadEmisora;
-
     private LocalDate fechaExpriracion;
 
 }

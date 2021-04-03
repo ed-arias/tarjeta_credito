@@ -6,5 +6,5 @@ import lombok.Data;
 public class ResponseDisponibilidadModel {
     private int status;
     private String statusDescription;
-    private String mensaje;
+    private String message;
 }
