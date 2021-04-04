@@ -16,16 +16,19 @@ public class DroolExecutionService {
     private final KieSession kieSession;
     private final SolicitudRepository solicitudRepository;
 
-    public Solicitud executeRules(ReqGenerarTarjeta reqGenerarTarjeta) throws Exception {
-
+    public Solicitud llamarMotorReglas(ReqGenerarTarjeta reqGenerarTarjeta) throws Exception{
+        
         Solicitud solicitud = solicitudRepository.findById(reqGenerarTarjeta.getIdSolicitud()).orElseThrow(
-            () -> new Exception("Solicitud no encontrada con id: " + reqGenerarTarjeta.getIdSolicitud()));
+                () -> new Exception("Solicitud no encontrada con id: " + reqGenerarTarjeta.getIdSolicitud()));
+
+        return executeRules(solicitud);
+    }
+
+    public Solicitud executeRules(Solicitud solicitud) throws Exception {
 
         kieSession.insert(solicitud);
         kieSession.fireAllRules();
         kieSession.dispose();
-
-        solicitudRepository.save(solicitud);
 
         return solicitud;
     }

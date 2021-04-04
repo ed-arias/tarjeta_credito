@@ -19,6 +19,7 @@ public class ValidarOtorgamientoService {
 
     private final SolicitudRepository solicitudRepository;
     private final ClienteRepository clienteRepository;
+    private final DroolExecutionService droolExecutionService;
 
     public ResValidarOtorgamiento validarOtorgamientoAutomatico(ReqValidarOtorgamiento reqValidarOtorgamiento) throws Exception {
 
@@ -27,28 +28,24 @@ public class ValidarOtorgamientoService {
 
         Cliente cliente = solicitud.getCliente();
         ResValidarOtorgamiento resValidarOtorgamiento = new ResValidarOtorgamiento();
+
+        solicitud = droolExecutionService.executeRules(solicitud);
         
-        cliente.setResultadoOtorgamientoAutomatico(evaluarRiesgo());
+        cliente.setResultadoOtorgamientoAutomatico(solicitud.getCliente().getResultadoOtorgamientoAutomatico());
 
         clienteRepository.save(cliente);
         solicitudRepository.save(solicitud);
 
         resValidarOtorgamiento.setResultado(cliente.getResultadoOtorgamientoAutomatico());
-        resValidarOtorgamiento.setCupo(5825000L);
+        resValidarOtorgamiento.setCupo(Long.valueOf(getRandomNumberUsingInts(3000000, 10000000)));
         resValidarOtorgamiento.setFranquicia("VISA");
 
         return resValidarOtorgamiento;
     }
 
-    private String evaluarRiesgo() {
+    public int getRandomNumberUsingInts(int min, int max) {
         Random random = new Random();
-
-        if(random.nextInt() % 2 == 0){
-            return "S";
-        }
-        else{
-            return "N";
-        }
+        return random.ints(min, max).findFirst().getAsInt();
     }
     
 }

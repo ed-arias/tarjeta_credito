@@ -1,6 +1,7 @@
 package com.co.scotiabank.tarjeta_credito.domain.services;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 import com.co.scotiabank.tarjeta_credito.api.models.ReqGenerarTarjeta;
 import com.co.scotiabank.tarjeta_credito.api.models.ResGenerarTarjeta;
@@ -23,7 +24,7 @@ public class GenerarTarjetaService {
     private final ClienteRepository clienteRepository;
     private final TarjetaCreditoRepository tarjetaCreditoRepository;
 
-    public ResGenerarTarjeta generarTarjeta(ReqGenerarTarjeta reqGenerarTarjeta) throws Exception{
+    public ResGenerarTarjeta generarTarjeta(ReqGenerarTarjeta reqGenerarTarjeta) throws Exception {
 
         Solicitud solicitud = solicitudRepository.findById(reqGenerarTarjeta.getIdSolicitud()).orElseThrow(
                 () -> new Exception("Solicitud no encontrada con id: " + reqGenerarTarjeta.getIdSolicitud()));
@@ -32,10 +33,10 @@ public class GenerarTarjetaService {
         TarjetaCredito tarjetaCredito = new TarjetaCredito();
         ResGenerarTarjeta resGenerarTarjeta = new ResGenerarTarjeta();
 
-        tarjetaCredito.setCcv(1234);
+        tarjetaCredito.setCcv(getRandomNumberUsingInts(100, 1000));
         tarjetaCredito.setFechaExpriracion(LocalDate.now());
         tarjetaCredito.setFranquicia("VISA");
-        tarjetaCredito.setNumero("9876-5432-1285-7419");
+        tarjetaCredito.setNumero(generarNumeroTarjeta());
 
         cliente.getTarjetasCredito().add(tarjetaCredito);
 
@@ -48,5 +49,21 @@ public class GenerarTarjetaService {
 
         return resGenerarTarjeta;
     }
-    
+
+    public String generarNumeroTarjeta() {
+        String tarjeta = "" + getRandomNumberUsingInts(4000, 5000) + "-";
+        for (int i = 0; i < 3; i++) {
+            tarjeta = tarjeta + getRandomNumberUsingInts(1000, 10000);
+            if (i < 2) {
+                tarjeta = tarjeta + "-";
+            }
+        }
+        return tarjeta;
+    }
+
+    public int getRandomNumberUsingInts(int min, int max) {
+        Random random = new Random();
+        return random.ints(min, max).findFirst().getAsInt();
+    }
+
 }

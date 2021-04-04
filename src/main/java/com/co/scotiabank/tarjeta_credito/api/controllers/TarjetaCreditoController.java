@@ -75,7 +75,7 @@ public class TarjetaCreditoController {
 
     @PostMapping("/motorReglas")
     public ResponseEntity<Solicitud> ejecutarMotor(@RequestBody ReqGenerarTarjeta reqGenerarTarjeta) throws Exception {
-        return new ResponseEntity<>(droolsService.executeRules(reqGenerarTarjeta), HttpStatus.OK);
+        return new ResponseEntity<>(droolsService.llamarMotorReglas(reqGenerarTarjeta), HttpStatus.OK);
     }
 
     @GetMapping("/test")
