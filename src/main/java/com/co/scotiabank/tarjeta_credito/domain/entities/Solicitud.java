@@ -1,6 +1,7 @@
 package com.co.scotiabank.tarjeta_credito.domain.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,9 @@ public class Solicitud implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSolicitud;
     private Long estado;
+    private LocalDateTime fechaSolicitud;
+    private LocalDateTime fechaActualizacionEstado;
+    private Long cupoOtorgado;
 
     @OneToOne
     @JoinColumn(name = "id_cliente")

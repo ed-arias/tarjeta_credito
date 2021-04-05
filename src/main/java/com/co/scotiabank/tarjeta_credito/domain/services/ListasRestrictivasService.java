@@ -38,11 +38,14 @@ public class ListasRestrictivasService {
         return resListasRestrictivas;
     }
 
-    private String evaluarListasRestrictivas() {
+    public String evaluarListasRestrictivas() {
         Random random = new Random();
-        String opciones = "SN";
-
-        return String.valueOf(opciones.charAt(random.nextInt(opciones.length())));
+        if(random.nextDouble() <= 0.3){
+            return "N";
+        }
+        else{
+            return "S";
+        }
     }
 
 }

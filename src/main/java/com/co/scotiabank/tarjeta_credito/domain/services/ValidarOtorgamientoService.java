@@ -27,17 +27,19 @@ public class ValidarOtorgamientoService {
                 () -> new Exception("Solicitud no encontrada con id: " + reqValidarOtorgamiento.getIdSolicitud()));
 
         Cliente cliente = solicitud.getCliente();
+        cliente.setIngresos(reqValidarOtorgamiento.getCantidadIngresos());
         ResValidarOtorgamiento resValidarOtorgamiento = new ResValidarOtorgamiento();
 
         solicitud = droolExecutionService.executeRules(solicitud);
         
         cliente.setResultadoOtorgamientoAutomatico(solicitud.getCliente().getResultadoOtorgamientoAutomatico());
+        cliente.setIngresos(reqValidarOtorgamiento.getCantidadIngresos());
 
         clienteRepository.save(cliente);
         solicitudRepository.save(solicitud);
 
         resValidarOtorgamiento.setResultado(cliente.getResultadoOtorgamientoAutomatico());
-        resValidarOtorgamiento.setCupo(Long.valueOf(getRandomNumberUsingInts(3000000, 10000000)));
+        resValidarOtorgamiento.setCupo(solicitud.getCupoOtorgado());
         resValidarOtorgamiento.setFranquicia("VISA");
 
         return resValidarOtorgamiento;

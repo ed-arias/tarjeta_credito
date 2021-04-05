@@ -28,7 +28,7 @@ public class DroolExecutionService {
 
         kieSession.insert(solicitud);
         kieSession.fireAllRules();
-        kieSession.dispose();
+        //kieSession.dispose();
 
         return solicitud;
     }

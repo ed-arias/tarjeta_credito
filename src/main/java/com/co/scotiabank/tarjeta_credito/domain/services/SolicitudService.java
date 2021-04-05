@@ -1,5 +1,7 @@
 package com.co.scotiabank.tarjeta_credito.domain.services;
 
+import java.time.LocalDateTime;
+
 import com.co.scotiabank.tarjeta_credito.api.models.ReqActualizarEstado;
 import com.co.scotiabank.tarjeta_credito.api.models.RequestSolicitudModel;
 import com.co.scotiabank.tarjeta_credito.api.models.ResponseSolicitudModel;
@@ -39,6 +41,7 @@ public class SolicitudService {
 
         solicitud.setCliente(cliente);
         solicitud.setEstado(1L);
+        solicitud.setFechaSolicitud(LocalDateTime.now());
 
         solicitud = solicitudRepository.save(solicitud);
 
@@ -54,6 +57,7 @@ public class SolicitudService {
                 () -> new Exception("Solicitud no encontrada con id: " + reqActualizarEstado.getIdSolicitud()));
 
         solicitud.setEstado(reqActualizarEstado.getIdEstado());
+        solicitud.setFechaActualizacionEstado(LocalDateTime.now());
 
         solicitudRepository.save(solicitud);
     }

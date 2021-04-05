@@ -55,6 +55,7 @@ public class Cliente implements Serializable {
     private String resultadoListasRestrictivas;
     private String resultadoRiesgo;
     private String resultadoOtorgamientoAutomatico;
+    private Long ingresos;
 
     @OneToMany
     @JoinColumn(name = "id_cliente")
