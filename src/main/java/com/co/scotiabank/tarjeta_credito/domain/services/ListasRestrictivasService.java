@@ -28,7 +28,7 @@ public class ListasRestrictivasService {
         Cliente cliente = solicitud.getCliente();
         ResListasRestrictivas resListasRestrictivas = new ResListasRestrictivas();
 
-        cliente.setResultadoListasRestrictivas(evaluarListasRestrictivas());
+        cliente.setResultadoListasRestrictivas("N");
 
         clienteRepository.save(cliente);
         solicitudRepository.save(solicitud);
@@ -41,10 +41,10 @@ public class ListasRestrictivasService {
     public String evaluarListasRestrictivas() {
         Random random = new Random();
         if(random.nextDouble() <= 0.3){
-            return "N";
+            return "S";
         }
         else{
-            return "S";
+            return "N";
         }
     }
 
